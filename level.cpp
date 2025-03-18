@@ -13,13 +13,13 @@ Level::~Level()
 
 Level::Level(Graphics& graphics, std::string mapName) :  m_mapName(mapName)
 {
-	loadMapTexture(graphics.getTexture(mapName));//загрузка спрайтов локации
+	loadMapTexture(graphics.getTexture(mapName));
 }
 
 
 void Level::loadMapTexture(SDL_Texture* texture)
 {
-	m_mapTexture = texture;//SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(m_mapName));
+	m_mapTexture = texture;
 }
 
 void Level::draw(Graphics& graphics)
@@ -58,7 +58,7 @@ std::map<int, std::vector<float>> Level::generateChunk(int chunkX, int chunkY)
 		for (int x = 0; x < globals::CHUNK_SIZE; ++x) {
 			int worldX = chunkX * globals::CHUNK_SIZE + x;
 			int worldY = chunkY * globals::CHUNK_SIZE + y;
-			genmap[y].push_back((float)rand() / RAND_MAX); //noise(worldX, worldY)
+			genmap[y].push_back((float)rand() / RAND_MAX); 
 		}
 	}
 	return genmap;

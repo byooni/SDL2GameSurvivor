@@ -10,9 +10,9 @@
 
 
 #define NOMINMAX
-//#include <windows.h>
 #include <thread>
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -20,9 +20,9 @@
 const Uint32 FPS = 60;
 const Uint32 MAX_FRAME_TIME = 6 * 1000 / FPS;
 const Uint32 MAX_UNITS      = 100;
-const float MAX_UNITS_SPEED = 4.0f;
+const float MAX_UNITS_SPEED = 1.0f;
 Uint32   enemiesCount = 1;
-float newspeed = 0.5f;
+float newspeed = 0.3f;
 int   currentScorePoints = 0;
 int   scorePoints = 0;
 
@@ -32,9 +32,7 @@ GameEngine::GameEngine()
 	SDL_Init(SDL_INIT_EVERYTHING);
 	m_enemies.reserve(MAX_UNITS);
 
-	/*Mix_Chunk* chargeSfx = Mix_LoadWAV("res/sfx/charge.mp3");
-	Mix_Chunk* swingSfx = Mix_LoadWAV("res/sfx/swing.mp3");
-	Mix_Chunk* holeSfx = Mix_LoadWAV("res/sfx/hole.mp3");*/
+
 	while (true)
 	{
 		if (gameLoop()) {
@@ -79,6 +77,7 @@ bool GameEngine::gameLoop()
 						keyHandler(event.key, true);
 					}
 				}
+
 				if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
 					m_restart = true;
 					quit      = true;
@@ -102,15 +101,19 @@ bool GameEngine::gameLoop()
 
 		const Uint32 currentTime = SDL_GetTicks();
 		Uint32 elapsedTime = currentTime - lastUpdateTime;
-		
-		update(std::min(elapsedTime, MAX_FRAME_TIME));
-		lastUpdateTime = currentTime;
+		if (!m_endGame) {
+			update(std::min(elapsedTime, MAX_FRAME_TIME));
+			lastUpdateTime = currentTime;
+		}
+
+
 		if (m_player.getCurrentHealth() <= 0) {
 			m_player.end();
 			m_endGame = true;
 		}
-
+		
 		draw(m_graphics);
+		
 	}
 
 
@@ -123,7 +126,7 @@ bool GameEngine::gameLoop()
 void GameEngine::restart()
 {
 	enemiesCount = 1;
-	newspeed = 0.5f;
+	newspeed = 0.3f;
 	currentScorePoints = 0;
 	scorePoints = 0;
 	m_enemies.clear();
@@ -139,10 +142,12 @@ void GameEngine::update(float time)
 	m_player.update(time, m_camera);
 	
 
-	if (scorePoints > currentScorePoints) {
+	if (scorePoints == currentScorePoints) {
 		enemiesCount = enemiesCount + 1;
 		currentScorePoints += 500;
-		newspeed = static_cast<float>(enemiesCount / 10.f);
+        if (scorePoints % 2000 == 0)
+		    newspeed = newspeed + 0.1f;
+		
 
 	}
 
@@ -161,20 +166,42 @@ void GameEngine::draw(Graphics& graphics)
 	std::for_each(std::begin(m_enemies), std::end(m_enemies), [&](Enemy character) { character.draw(graphics); });
 
 	m_player.draw(graphics);
-
-	std::string score{ "Score: " + std::to_string(scorePoints) };
-	if (!m_endGame) {
-		graphics.renderText(score, 0, 0, 1);
-	}
-	else {
-		graphics.renderText(score, (globals::SCREEN_WIDTH - score.size() - 300) / 2,
-			                       (globals::SCREEN_HEIGHT) / 2,
-			                        2);
-	}
+	drawHud(graphics);
+	
 
 	graphics.flip();
 }
 
+void GameEngine::drawHud(Graphics& graphics) 
+{
+	std::string score{ "Score: " + std::to_string(scorePoints) };
+	if (m_endGame) {
+		
+		graphics.renderText(score, (globals::SCREEN_WIDTH - std::strlen(score.c_str()) - 350) / 2,
+			(globals::SCREEN_HEIGHT) / 2,
+			2);
+
+		std::string text{ "Press 'Esc' to restart game" };
+		graphics.renderText(text, (globals::SCREEN_WIDTH - std::strlen(text.c_str()) - 400) / 2,
+			(globals::SCREEN_HEIGHT)-100,
+			1);
+	}
+	else {
+		int padding = 20;
+		graphics.renderText(score, padding, 0, 1);
+		std::string inputs = { "W - move up" };
+		graphics.renderText(inputs, padding, 64, 1);
+		inputs = { "S  - move down" };
+		graphics.renderText(inputs, padding, 96, 1);
+		inputs = { "A  - move left" };
+		graphics.renderText(inputs, padding, 128, 1);
+		inputs = { "D  - move right" };
+		graphics.renderText(inputs, padding, 160, 1);
+
+
+		
+	}
+}
 
 void GameEngine::keyHandler(SDL_KeyboardEvent key, bool isDown) {
 	switch (key.keysym.scancode)
@@ -281,7 +308,24 @@ void GameEngine::chekEnemies(Graphics& graphics, float timeUpdate)
 				enemySpawn.y = m_player.getY() + globals::SCREEN_HEIGHT + 100;
 				break;
 			}
-			Enemy enemy = Enemy(graphics, enemySpawn, static_cast<Movememt>(rand() % 3));
+			Movememt   movement = static_cast<Movememt>(rand() % 3);
+			std::string enemyTexture;
+			switch (movement)
+			{
+			case straigh:
+				enemyTexture = "images/EnemyChar.png";
+				break;
+			case sinusoida:
+				enemyTexture = "images/EnemyChar2.png";
+				break;
+			case spiral:
+				enemyTexture = "images/EnemyChar3.png";
+				break;
+			default:
+				break;
+			}
+
+			Enemy enemy = Enemy(graphics, enemySpawn, enemyTexture, movement);
 			enemy.setWalkSpeed(std::min(newspeed, MAX_UNITS_SPEED));
 			m_enemies.push_back(enemy);
 		}

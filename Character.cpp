@@ -34,15 +34,17 @@ void Character::setupAnimations()
 {
 	
 	Vector2 spawn{ 0,0 };
-	
-	addAnimation(1, std::vector<int> {1}, 1, "idleLeft", 128, 160, spawn);
-	addAnimation(1, std::vector<int> {1}, 2, "idleRight", 128, 160, spawn);
-	addAnimation(1, std::vector<int> {1}, 3, "idleUp", 128, 160, spawn);
-	addAnimation(1, std::vector<int> {1}, 0, "idleDown", 128, 160, spawn);
-	addAnimation(4, std::vector<int> {1, 0, 1, 2}, 1, "RunLeft", 128, 160, spawn);
-	addAnimation(4, std::vector<int> {1, 0, 1, 2}, 2, "RunRight", 128, 160, spawn);
-	addAnimation(4, std::vector<int> {1, 0, 1, 2}, 3, "RunUp", 128, 160, spawn);
-	addAnimation(4, std::vector<int> {1, 0, 1, 2}, 0, "RunDown", 128, 160, spawn);
+	int h = 100;
+;
+	int w = 125;
+	addAnimation(1, std::vector<int> {1}, 1, "idleLeft", h, w, spawn);
+	addAnimation(1, std::vector<int> {1}, 2, "idleRight", h, w, spawn);
+	addAnimation(1, std::vector<int> {1}, 3, "idleUp", h, w, spawn);
+	addAnimation(1, std::vector<int> {1}, 0, "idleDown", h, w, spawn);
+	addAnimation(4, std::vector<int> {1, 0, 1, 2}, 1, "RunLeft", h, w, spawn);
+	addAnimation(4, std::vector<int> {1, 0, 1, 2}, 2, "RunRight", h, w, spawn);
+	addAnimation(4, std::vector<int> {1, 0, 1, 2}, 3, "RunUp", h, w, spawn);
+	addAnimation(4, std::vector<int> {1, 0, 1, 2}, 0, "RunDown", h, w, spawn);
 }
 
 

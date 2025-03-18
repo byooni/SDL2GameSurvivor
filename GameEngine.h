@@ -29,6 +29,7 @@ private:
 	void chekInputs();
 	void chekEnemies(Graphics& graphics, float timeUpdate);
 	void draw(Graphics& graphics);
+	void drawHud(Graphics& graphics);
 
 	//SDL_Window* m_window;
 	//SDL_Renderer* m_renderer;

@@ -37,7 +37,7 @@ protected:
 class Enemy : public EnemyCharacter {
 public:
 	Enemy();
-	Enemy(Graphics& graphics, Vector2 spawnPoint, Movememt movement);
+	Enemy(Graphics& graphics, Vector2 spawnPoint, std::string filePath, Movememt movement);
 
 	void update(int elapsedTime, Character& player, Vector2 camera);
 	void draw(Graphics& graphics);

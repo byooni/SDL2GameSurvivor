@@ -28,8 +28,8 @@ void EnemyCharacter::draw(Graphics& graphics)
 }
 
 
-Enemy::Enemy(Graphics& graphics, Vector2 spawnPoint, Movememt movement) :
-	EnemyCharacter(graphics, "images/EnemyChar.png", 0, 0, 16, 16, spawnPoint, 140),
+Enemy::Enemy(Graphics& graphics, Vector2 spawnPoint, std::string filePath, Movememt movement) :
+	EnemyCharacter(graphics, filePath, 0, 0, 16, 16, spawnPoint, 140),
 	m_startingX(spawnPoint.x),
 	m_startingY(spawnPoint.y),
 	m_shouldMoveUp(false),
@@ -116,10 +116,10 @@ void Enemy::setupAnimations()
 	Vector2 spawn{ 0,0 };
 	//addAnimation(3, 2, 32, "RunLeft", 16, 16, Vector2(0, 0));
 	//addAnimation(3, 2, 48, "RunRight", 16, 16, Vector2(0, 0));
-	addAnimation(4, std::vector<int> {0, 1, 2, 3}, 2, "RunLeft", 16, 16, spawn);
-	addAnimation(4, std::vector<int> {0, 1, 2, 3}, 6, "RunRight", 16, 16, spawn);
-	addAnimation(4, std::vector<int> {0, 1, 2, 3}, 4, "RunUp", 16, 16, spawn);
-	addAnimation(4, std::vector<int> {0, 1, 2, 3}, 0, "RunDown", 16, 16, spawn);
+	addAnimation(4, std::vector<int> {0, 1, 2, 3}, 2, "RunLeft", 50, 50, spawn);
+	addAnimation(4, std::vector<int> {0, 1, 2, 3}, 6, "RunRight", 50, 50, spawn);
+	addAnimation(4, std::vector<int> {0, 1, 2, 3}, 4, "RunUp", 50, 50, spawn);
+	addAnimation(4, std::vector<int> {0, 1, 2, 3}, 0, "RunDown", 50, 50, spawn);
 }
 
 

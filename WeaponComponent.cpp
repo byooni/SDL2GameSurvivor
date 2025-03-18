@@ -64,5 +64,5 @@ void WeaponComponent::animationComplete(std::string currentAnimation)
 void WeaponComponent::setupAnimations()
 {
 	Vector2 spawn{ 0, 0 };
-	addAnimation(1, std::vector<int> {4}, 1, "idle", 16, 16, spawn);
+	addAnimation(3, std::vector<int> {0,1,2}, 0, "idle", 100, 100, spawn);
 }

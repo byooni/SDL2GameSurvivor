@@ -34,6 +34,8 @@ void Graphics::loadTextures()
 {
 	loadTexture("images/Character.png");
 	loadTexture("images/EnemyChar.png");
+	loadTexture("images/EnemyChar2.png");
+	loadTexture("images/EnemyChar3.png");
 	loadTexture("images/Box.png");
 	loadTexture("images/ground.png");
 }
