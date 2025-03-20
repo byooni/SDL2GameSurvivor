@@ -74,20 +74,21 @@ void Level::generateMap(Graphics& graphics, std::map<int, std::vector<float>>& m
 			SDL_Rect soursceRect;
 			int spriteSize = 62;
 			if (value < 0.2f) {
-				soursceRect = { 2 * spriteSize, 2 * spriteSize, spriteSize, spriteSize }; // Трава
+				soursceRect = { 0 * spriteSize, 0, spriteSize, spriteSize }; // Трава
 			}
 			else if (value < 0.5f) {
-				soursceRect = { 5 * spriteSize,  2 * spriteSize, spriteSize, spriteSize }; // Трава
+				soursceRect = { 1 * spriteSize,  0, spriteSize, spriteSize }; // Трава
 			}
 			else if (value < 0.7f) {
-				soursceRect = { 0  , 2 * spriteSize, spriteSize, spriteSize }; // Трава
+				soursceRect = { 2 * spriteSize ,  0, spriteSize, spriteSize }; // Трава
 			}
 			else if (value < 0.9f) {
-				soursceRect = { 7 * spriteSize, 2 * spriteSize, spriteSize, spriteSize }; // Трава
+				soursceRect = { 3 * spriteSize,  0, spriteSize, spriteSize }; // Трава
 			}
 			else {
-				soursceRect = {0 , 3 * spriteSize, spriteSize, spriteSize }; // земля
+				soursceRect = {4 * spriteSize,  0, spriteSize, spriteSize }; // земля
 			}
+			
 
 			
 			int screenX = (chunkX * globals::CHUNK_SIZE + x) * globals::TILE_SIZE - m_camera.x;

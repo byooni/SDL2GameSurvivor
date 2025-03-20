@@ -101,6 +101,27 @@ void Character::move(Direction direction)
 		m_direction = direction;
 		m_weapon.replace(m_x, getBoundingBox()->h + m_y, m_direction);
 		break;
+	case downR:
+		playAnimation("RunDown");
+		m_direction = direction;
+		m_weapon.replace(getBoundingBox()->w + m_x - globals::PLAYER_SIZE, getBoundingBox()->h + m_y - globals::PLAYER_SIZE, m_direction);
+		break;
+	case downL:
+		playAnimation("RunDown");
+		m_direction = direction;
+		m_weapon.replace(-getBoundingBox()->w + m_x + globals::PLAYER_SIZE, getBoundingBox()->h + m_y - globals::PLAYER_SIZE, m_direction);
+		break;
+	case upR:
+		playAnimation("RunUp");
+		m_direction = direction;
+		m_weapon.replace(getBoundingBox()->w + m_x - globals::PLAYER_SIZE, -getBoundingBox()->h + m_y + globals::PLAYER_SIZE, m_direction);
+		break;
+	case upL:
+		playAnimation("RunUp");
+		m_direction = direction;
+		m_weapon.replace(-getBoundingBox()->w + m_x + globals::PLAYER_SIZE, -getBoundingBox()->h + m_y  + globals::PLAYER_SIZE, m_direction);
+		break;
+
 	default:
 		break;
 	}

@@ -20,6 +20,10 @@ enum Direction {
 	right,
 	up,
 	down,
+	upL,
+	upR,
+	downR,
+	downL,
 };
 
 struct Vector2 {

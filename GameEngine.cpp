@@ -223,7 +223,6 @@ void GameEngine::keyHandler(SDL_KeyboardEvent key, bool isDown) {
 		else {
 			m_heldKeys[SDL_SCANCODE_W] = false;
 		}
-
 		break;
 	case SDL_SCANCODE_S:
 		if (isDown) {
@@ -259,6 +258,14 @@ void GameEngine::chekInputs()
 	else if (m_heldKeys[SDL_SCANCODE_D])
 		m_player.move(Direction::right);
 
+	if (m_heldKeys[SDL_SCANCODE_S] && m_heldKeys[SDL_SCANCODE_D])
+		m_player.move(Direction::downR);
+	else if (m_heldKeys[SDL_SCANCODE_S] && m_heldKeys[SDL_SCANCODE_A])
+		     m_player.move(Direction::downL);
+	else if (m_heldKeys[SDL_SCANCODE_A] && m_heldKeys[SDL_SCANCODE_W])
+		     m_player.move(Direction::upL);
+	else if (m_heldKeys[SDL_SCANCODE_W] && m_heldKeys[SDL_SCANCODE_D])
+		     m_player.move(Direction::upR);
 
 	if (!m_heldKeys[SDL_SCANCODE_S] && !m_heldKeys[SDL_SCANCODE_W])
 		m_player.stopMove(false);
