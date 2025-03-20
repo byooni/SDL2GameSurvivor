@@ -23,6 +23,11 @@ Sprite::Sprite(Graphics& graphics, const std::string& filePath,  int x, int y, i
 		                          static_cast<int>(m_y + globals::SCREEN_HEIGHT / 2 - source.h), 
 		                          source.w * globals::SPRITE_SCALE, 
 		                          source.h * globals::SPRITE_SCALE };
+
+	m_boundingBox = new SDL_Rect{ static_cast<int>(m_x + globals::SCREEN_WIDTH / 2 - source.w),
+								  static_cast<int>(m_y + globals::SCREEN_HEIGHT / 2 - source.h),
+								  source.w * globals::SPRITE_SCALE,
+								  source.h * globals::SPRITE_SCALE };
 }
 
 Sprite::~Sprite()

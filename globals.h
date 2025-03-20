@@ -12,7 +12,7 @@ namespace globals {
 	const int16_t CHUNK_SIZE    = 32;
 	const int16_t PLAYER_SIZE   = 20;
 	const int16_t SPRITE_SCALE  = 6;
-	const int16_t TILE_SIZE     = 62;
+	const int16_t TILE_SIZE     = 128;
 }
 
 enum Direction {

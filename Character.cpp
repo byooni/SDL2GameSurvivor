@@ -9,7 +9,7 @@ Character::Character()
 }
 
 Character::Character(Graphics& graphics, Vector2 location, Vector2 locationOnScreen) :
-	Animation(graphics, "images/Character.png", 0, 0, globals::PLAYER_SIZE, globals::PLAYER_SIZE, locationOnScreen.x, locationOnScreen.y, 100),
+	Animation(graphics, "images/Character.png", 0, 0, 16, globals::PLAYER_SIZE, locationOnScreen.x, locationOnScreen.y, 100),
 	dx(0),
 	dy(0),
 	m_direction(right), 
@@ -18,7 +18,7 @@ Character::Character(Graphics& graphics, Vector2 location, Vector2 locationOnScr
 	m_end(false),
 	walkSpeed(0.2f)
 {
-	//graphics.loadImage("images/Character.png");
+
 	m_weapon = WeaponComponent{ graphics, Vector2{ 0,0 }};
 	setupAnimations();
 	move(m_direction);
